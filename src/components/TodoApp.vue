@@ -1,6 +1,6 @@
 <template>
     <div class="w-full max-w-md mx-auto">
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
             <todo-header :moveCompleted="moveCompleted" @update:moveCompleted="moveCompleted = $event" />
             <todo-list :todos="todos" :moveCompleted="moveCompleted" @add-todo="addTodo"
                 @toggle-complete="toggleComplete" @delete="deleteTodo" @clear-completed="clearCompleted"
@@ -21,11 +21,14 @@ export default {
         TodoList
     },
     setup() {
-        // État
+        // Note perso: utiliser le Composition API pour organiser la logique
+        // plus tard extraire ça dans un composable "useTodos" pour réutiliser
+
+        // État - les données de l'app
         const todos = ref([])
         const moveCompleted = ref(false)
 
-        // Charger les données du localStorage si elles existent
+        // Charger les données du localStorage au démarrage
         const loadFromLocalStorage = () => {
             const savedTodos = localStorage.getItem('todos')
             if (savedTodos) {
@@ -38,13 +41,13 @@ export default {
             }
         }
 
-        // Sauvegarder dans localStorage
+        // Sauvegarder dans localStorage à chaque changement
         const saveToLocalStorage = () => {
             localStorage.setItem('todos', JSON.stringify(todos.value))
             localStorage.setItem('moveCompleted', JSON.stringify(moveCompleted.value))
         }
 
-        // Méthodes
+        // Ajouter une nouvelle tâche
         const addTodo = (text) => {
             const newTodo = {
                 id: Date.now(),
@@ -55,6 +58,7 @@ export default {
             saveToLocalStorage()
         }
 
+        // Basculer l'état "complété" d'une tâche
         const toggleComplete = (id) => {
             const todo = todos.value.find(todo => todo.id === id)
             if (todo) {
@@ -63,16 +67,19 @@ export default {
             }
         }
 
+        // Supprimer une tâche par son id
         const deleteTodo = (id) => {
             todos.value = todos.value.filter(todo => todo.id !== id)
             saveToLocalStorage()
         }
 
+        // Supprimer toutes les tâches complétées
         const clearCompleted = () => {
             todos.value = todos.value.filter(todo => !todo.completed)
             saveToLocalStorage()
         }
 
+        // Tout effacer
         const clearAll = () => {
             todos.value = []
             saveToLocalStorage()
