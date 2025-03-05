@@ -2,11 +2,11 @@
 
 Une application de gestion de tâches moderne construite avec Vue.js 3 et Tailwind CSS.
 
-![Capture d'écran de Task-Vue](screenshot.png)
+![Capture d'écran de Task-Vue](./public/image.png)
 
 ## 🌐 Démo
 
-Consultez la démo en ligne : [Task-Vue Demo](https://votre-username.github.io/Task-Vue/)
+Consultez la démo en ligne : [Task-Vue Demo](https://techmefr.github.io/Task-Vue/)
 
 ## 📋 Caractéristiques
 
@@ -30,7 +30,7 @@ Consultez la démo en ligne : [Task-Vue Demo](https://votre-username.github.io/T
 
 ```bash
 # Cloner le dépôt
-git clone https://github.com/votre-username/Task-Vue.git
+git clone git@github.com:techmefr/Task-Vue.git
 cd Task-Vue
 
 # Installer les dépendances
